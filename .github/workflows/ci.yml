@@ -32,7 +32,7 @@ jobs:
           cache-dependency-path: batch-manager/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Run tests
         run: npm test -- --coverage --verbose
@@ -71,7 +71,7 @@ jobs:
 
       - name: Run tests
         run: |
-          python -m pytest tests/ -v --cov=shelby_sdk --cov-report=xml
+          python -m pytest tests/ -v
 
       - name: Upload coverage
         uses: actions/upload-artifact@v4
@@ -107,7 +107,7 @@ jobs:
 
       - name: Run tests
         run: |
-          python -m pytest tests/ -v --cov=expiry_monitor --cov-report=xml
+          python -m pytest tests/ -v
 
       - name: Upload coverage
         uses: actions/upload-artifact@v4
@@ -137,7 +137,7 @@ jobs:
           cache-dependency-path: nextjs-dashboard/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Lint
         run: npm run lint || true
