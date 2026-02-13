@@ -1,0 +1,86 @@
+# Shelby Ecosystem Suite - Docker Compose
+# Runs all services together
+
+services:
+  # ─────────────────────────────────────────
+  # 🎨 Dashboard (Next.js)
+  # ─────────────────────────────────────────
+  dashboard:
+    build:
+      context: ./nextjs-dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - shelby-net
+
+  # ─────────────────────────────────────────
+  # ⚡ Batch Upload Manager (Node.js)
+  # ─────────────────────────────────────────
+  batch-manager:
+    build:
+      context: ./batch-manager
+      dockerfile: Dockerfile
+    volumes:
+      - batch-data:/app/data
+      - ./batch-manager/config:/app/config
+    environment:
+      - NODE_ENV=production
+      - DB_PATH=/app/data/batch.sqlite
+      - CONCURRENCY=5
+    depends_on:
+      - dashboard
+    restart: unless-stopped
+    networks:
+      - shelby-net
+
+  # ─────────────────────────────────────────
+  # ⏰ Expiry Guard (Python)
+  # ─────────────────────────────────────────
+  expiry-guard:
+    build:
+      context: ./expiry-guard
+      dockerfile: Dockerfile
+    environment:
+      - DASHBOARD_URL=http://dashboard:3000
+      - SHELBY_API_URL=https://api.shelby.io
+      - ALERT_DAYS_BEFORE=7
+      - CRITICAL_DAYS_BEFORE=2
+      - LOG_LEVEL=INFO
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+    depends_on:
+      - dashboard
+    restart: unless-stopped
+    networks:
+      - shelby-net
+
+  # ─────────────────────────────────────────
+  # 🔄 Nginx Reverse Proxy (Optional)
+  # ─────────────────────────────────────────
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - dashboard
+    restart: unless-stopped
+    networks:
+      - shelby-net
+
+volumes:
+  batch-data:
+
+networks:
+  shelby-net:
+    driver: bridge

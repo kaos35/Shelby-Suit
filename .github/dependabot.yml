@@ -1,0 +1,50 @@
+version: 2
+updates:
+  # Dashboard (Next.js)
+  - package-ecosystem: "npm"
+    directory: "/nextjs-dashboard"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "dashboard"
+
+  # Batch Manager
+  - package-ecosystem: "npm"
+    directory: "/batch-manager"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "batch-manager"
+
+  # Python SDK
+  - package-ecosystem: "pip"
+    directory: "/python-sdk"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "python-sdk"
+
+  # Expiry Guard
+  - package-ecosystem: "pip"
+    directory: "/expiry-guard"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "expiry-guard"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "ci"

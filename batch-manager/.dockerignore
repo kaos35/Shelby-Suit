@@ -1,0 +1,8 @@
+node_modules
+dist
+.git
+*.md
+batch-manager.db
+npm-debug.log*
+tests
+jest.config.js

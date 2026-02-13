@@ -1,0 +1,37 @@
+{
+  "name": "@shelby-ecosystem/types",
+  "version": "1.0.0",
+  "description": "Paylaşılan TypeScript tip tanımları - Shelby Ekosistem Suite",
+  "type": "module",
+  "main": "./types/shelby.ts",
+  "exports": {
+    ".": {
+      "types": "./types/shelby.ts",
+      "import": "./types/shelby.ts"
+    },
+    "./types/*": "./types/*.ts"
+  },
+  "types": "./types/shelby.ts",
+  "files": [
+    "types/**/*"
+  ],
+  "keywords": [
+    "shelby",
+    "protocol",
+    "decentralized",
+    "storage",
+    "web3",
+    "aptos",
+    "typescript",
+    "types"
+  ],
+  "author": "Shelby Ekosystem Suite",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KULLANICI/shelby-ecosystem-suite"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  }
+}
