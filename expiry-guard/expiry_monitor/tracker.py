@@ -1,6 +1,6 @@
 import httpx
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List, Dict, Any
 
 class ExpiryTracker:
@@ -18,7 +18,7 @@ class ExpiryTracker:
                 all_blobs = response.json()
 
                 expiring = []
-                now = datetime.now()
+                now = datetime.now().astimezone()
                 threshold = now + timedelta(days=self.threshold_days)
 
                 for blob in all_blobs:
@@ -31,6 +31,9 @@ class ExpiryTracker:
                     
                     try:
                         expires_at = datetime.fromisoformat(expires_at_str.replace("Z", "+00:00"))
+                        # Ensure timezone-aware comparison
+                        if expires_at.tzinfo is None:
+                            expires_at = expires_at.astimezone()
                         if expires_at <= threshold:
                             expiring.append({
                                 "id": blob["id"],

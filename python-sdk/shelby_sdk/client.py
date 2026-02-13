@@ -7,6 +7,7 @@ from typing import Optional, Dict, Any
 from .config import ShelbyConfig
 from .exceptions import ShelbyConnectionError, ShelbyError
 import json
+import asyncio
 
 
 class ShelbyClient:
@@ -77,5 +78,3 @@ class ShelbyClient:
         await self.session.aclose()
 
 
-# Required at module level for async/await
-import asyncio

@@ -4,7 +4,7 @@ Download module for Shelby SDK
 
 import os
 import hashlib
-from typing import Optional
+from typing import Optional, Dict, Any
 from .client import ShelbyClient
 from .exceptions import ShelbyDownloadError
 import asyncio
@@ -84,7 +84,7 @@ class DownloadManager:
         response = await self.client._request(
             "GET",
             f"blob/{blob_id}/chunk/{chunk_index}",
-            params={"account": account_name},
+            data={"account": account_name},
             retries=self.client.config.max_retries,
         )
 
