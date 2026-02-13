@@ -18,7 +18,7 @@ ENV NODE_ENV=production
 # Install only production deps + native module build tools
 RUN apk add --no-cache python3 make g++
 COPY package.json package-lock.json ./
-RUN npm ci --only=production && apk del python3 make g++
+RUN npm ci --omit=dev && apk del python3 make g++
 
 COPY --from=builder /app/dist ./dist
 COPY config/ ./config/

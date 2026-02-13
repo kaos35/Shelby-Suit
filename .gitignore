@@ -46,6 +46,7 @@ build
 
 # Testing
 coverage
+coverage.xml
 .nyc_output
 .nyc_output
 
