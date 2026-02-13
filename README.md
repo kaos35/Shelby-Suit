@@ -1,5 +1,6 @@
 # 🚀 Shelby Ecosystem Suite
 
+[![CI/CD Pipeline](https://github.com/kaos35/Shelby-Suit/actions/workflows/ci.yml/badge.svg)](https://github.com/kaos35/Shelby-Suit/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Type: TypeScript](https://img.shields.io/badge/types-TypeScript-blue.svg)](https://www.typescriptlang.org/)
 [![Python: 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
@@ -69,9 +70,40 @@ Access points:
 #### Setup
 
 ```bash
-git clone https://github.com/shelby-ecosystem/shelby-ecosystem-suite.git
+git clone https://github.com/kaos35/Shelby-Suit.git shelby-ecosystem-suite
 cd shelby-ecosystem-suite
 docker-compose up -d --build
+```
+
+### 🧪 Running Tests
+
+Each component includes a comprehensive test suite.
+
+#### Python Components
+```bash
+# Python SDK
+cd python-sdk
+pip install -r requirements.txt
+pip install -e .
+pytest
+
+# Expiry Guard
+cd ../expiry-guard
+pip install -r requirements.txt
+pytest
+```
+
+#### Node.js Components
+```bash
+# Dashboard
+cd ../nextjs-dashboard
+npm install --legacy-peer-deps
+npm test
+
+# Batch Manager
+cd ../batch-manager
+npm install
+npm test
 ```
 
 ---
@@ -125,6 +157,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 - [Shelby Protocol Official Site](https://shelby.xyz)
 - [Documentation](https://docs.shelby.xyz)
-- [GitHub Issues](https://github.com/shelby-ecosystem/shelby-ecosystem-suite/issues)
+- [GitHub Issues](https://github.com/kaos35/Shelby-Suit/issues)
 
 Developed with ❤️ by the Shelby Community.
