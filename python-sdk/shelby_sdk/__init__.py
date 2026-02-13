@@ -29,5 +29,3 @@ __all__ = [
     "ShelbyBlobError",
     "ShelbyAccountError",
 ]
-
-__all__.extend([f"shelby_sdk.{name}" for name in __all__])

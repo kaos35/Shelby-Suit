@@ -70,7 +70,9 @@ jobs:
           pip install -e .
 
       - name: Run tests
-        run: pytest tests/ -v --cov=shelby_sdk --cov-report=xml
+        run: |
+          export PYTHONPATH=$PYTHONPATH:.
+          pytest tests/ -v --cov=shelby_sdk --cov-report=xml
 
       - name: Upload coverage
         uses: actions/upload-artifact@v4
@@ -102,9 +104,19 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install pytest pytest-asyncio pytest-mock pytest-cov
+          pip install -e .
 
       - name: Run tests
-        run: pytest tests/ -v --cov=expiry_monitor --cov-report=xml
+        run: |
+          export PYTHONPATH=$PYTHONPATH:.
+          pytest tests/ -v --cov=expiry_monitor --cov-report=xml
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: expiry-guard-coverage
+          path: expiry-guard/coverage.xml
 
   # ─────────────────────────────────────────
   # 🎨 Dashboard Build
