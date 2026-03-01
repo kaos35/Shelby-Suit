@@ -38,7 +38,7 @@ jobs:
         run: npm test -- --coverage --verbose
 
       - name: Upload coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: batch-manager-coverage
@@ -76,7 +76,7 @@ jobs:
           python -m pytest tests/ -v --cov=shelby_sdk --cov-report=xml
 
       - name: Upload coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: python-sdk-coverage
@@ -113,7 +113,7 @@ jobs:
           python -m pytest tests/ -v --cov=expiry_monitor --cov-report=xml
 
       - name: Upload coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: expiry-guard-coverage
